@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="22d8d475573043ef90a2b8f7bd2f43ee" Name="Diagram1">
+        <EntityTypeShape EntityType="ToysModel.Category" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Manufacturers" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.OrderProduct" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Orders" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Products" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.PVZ" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Roles" Width="1.5" PointX="1.5" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Status" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Suppliers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Users" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
+        <AssociationConnector Association="ToysModel.FK_Products_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ToysModel.FK_Products_Manufacturers" ManuallyRouted="false" />
+        <AssociationConnector Association="ToysModel.FK_OrderProduct_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="ToysModel.FK_OrderProduct_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="ToysModel.FK_Orders_PVZ" ManuallyRouted="false" />
+        <AssociationConnector Association="ToysModel.FK_Orders_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="ToysModel.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ToysModel.FK_Products_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="ToysModel.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
