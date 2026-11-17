@@ -44,13 +44,13 @@ namespace SalesToys.Pages
             }
 
             User.users = human;
-            NavigationService.Navigate(new LoginPage());
+            NavigationService.Navigate(new GatalogPage());
             Message.SuccessfulAuthorization();
         }
 
         private void ButtonTovar_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new LoginPage());
+            NavigationService.Navigate(new GatalogPage());
         }
 
         private void RegisterLink_Click(object sender, RoutedEventArgs e)
