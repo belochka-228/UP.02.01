@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="ColorMainBackground">#FFFFFF</Color>
+    <Color x:Key="ColorSecondaryBackground">#F5DEB3</Color>
+    <Color x:Key="ColorAccent">#DEB887</Color>
+    <Color x:Key="ColorDiscount">#FFDEAD</Color>
+
+    <SolidColorBrush x:Key="BrushMainBackground" Color="{StaticResource ColorMainBackground}"/>
+    <SolidColorBrush x:Key="BrushSecondaryBackground" Color="{StaticResource ColorSecondaryBackground}"/>
+    <SolidColorBrush x:Key="BrushAccent" Color="{StaticResource ColorAccent}"/>
+    <SolidColorBrush x:Key="BrushDiscount" Color="{StaticResource ColorDiscount}"/>
+
+    <FontFamily x:Key="FontArial">Arial</FontFamily>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    
+</ResourceDictionary>

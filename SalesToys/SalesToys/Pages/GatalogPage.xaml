@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SalesToys.Pages"
       mc:Ignorable="d" 
+      Background="{StaticResource BrushMainBackground}"
+      FontFamily="{StaticResource FontArial}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GatalogPage">
 
@@ -13,21 +15,32 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            
+        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" Visibility="Visible">
+            <TextBlock Text="Поиск: "/>
+            <TextBox x:Name="txtSource" Width="150" SelectionChanged="txtSource_SelectionChanged"/>
+            <TextBlock Text="Отсортировать по: " Margin="5,0"/>
+            <ComboBox x:Name="cmbPrice" Width="Auto" SelectionChanged="cmbPrice_SelectionChanged">
+                <ComboBoxItem>Цене (Возрастание)</ComboBoxItem>
+                <ComboBoxItem>Цене (Убывание)</ComboBoxItem>
+                <ComboBoxItem>Количеству на складе (Возрастание)</ComboBoxItem>
+                <ComboBoxItem>Количеству на складе (Убывание)</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Text="Отфильтровать по: " Margin="5,0" />
+            <ComboBox x:Name="cmbSupplier" DisplayMemberPath="Supplier" Width="Auto" SelectionChanged="cmbSupplier_SelectionChanged"/>
         </StackPanel>
 
-        <ListBox Grid.Row="1" x:Name="lstTovar" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Stretch">
+        <ListBox Grid.Row="1" x:Name="lstTovar" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate>
+                  <Border Padding="5" Loaded="ItemBorder_Loaded">
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" >
-                            <Image Source="{Binding Image}" Width="300" Height="200"/>
+                            <Image Source="{Binding Image, StringFormat=/Image/{0}}" Width="300" Height="200" Stretch="Uniform"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10">
                             <StackPanel Orientation="Horizontal">
@@ -36,9 +49,16 @@
                                 <TextBlock Text="{Binding Name}"/>
                             </StackPanel>
                             <TextBlock Text="{Binding Description, StringFormat=Описание товара: {0}}"/>
-                            <TextBlock Text="{Binding Suppliers.Supplier, StringFormat=Производитель: {0}}"/>
-                            <TextBlock Text="{Binding Manufacturers.Manufacturer, StringFormat=Поставщик: {0}}"/>
-                            <TextBlock Text="{Binding Price, StringFormat=Цена: {0}}"/>
+                                <TextBlock Text="{Binding Suppliers.Supplier, StringFormat=Поставщик: {0}}"/>
+                                <TextBlock Text="{Binding Manufacturers.Manufacturer, StringFormat=Производитель: {0}}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Price, StringFormat=Цена: {0}}" Foreground="Red"
+                                               TextDecorations="Strikethrough"
+                                               Loaded="OldPrice_Loaded"/>
+                                    <TextBlock Foreground="Black"
+                                               Margin="10,0,0,0"
+                                               Loaded="FinalPrice_Loaded"/>
+                                </StackPanel>
                             <TextBlock Text="{Binding Unit, StringFormat=Единица измерения: {0}}"/>
                             <TextBlock Text="{Binding Quantity, StringFormat=Количество на складе: {0} }"/>
                         </StackPanel>
@@ -46,6 +66,7 @@
                             <TextBlock Text="{Binding Discount}"/>
                         </StackPanel>
                     </Grid>
+                  </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
