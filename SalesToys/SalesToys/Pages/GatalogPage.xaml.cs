@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
 
 namespace SalesToys.Pages
 {
@@ -23,6 +24,11 @@ namespace SalesToys.Pages
         public GatalogPage()
         {
             InitializeComponent();
+            lstTovar.ItemsSource = Core.Context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Suppliers)
+                .Include(p => p.Manufacturers)
+                .ToList();
         }
     }
 }
