@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SalesToys.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace SalesToys
         public MainWindow()
         {
             InitializeComponent();
-            
+            MainFrame.Navigate(new LoginPage());
         }
     }
 }
