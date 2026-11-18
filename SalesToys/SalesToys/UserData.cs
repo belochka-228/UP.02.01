@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SalesToys
 {
-    public static class User
+    public static class UserData
     {
         public static Users users { get; set; }
     }

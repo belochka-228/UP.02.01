@@ -29,14 +29,14 @@ namespace SalesToys
         }
         private void MainFrame_Navigated(object sender, NavigationEventArgs e)
         {
-            if (User.users == null)
+            if (UserData.users == null)
             {
                 txtFIO.Text = string.Empty;
                 PanelButton.Visibility = Visibility.Collapsed;
             }
             else
             {
-                txtFIO.Text = User.users.FIO;
+                txtFIO.Text = UserData.users.FIO;
                 PanelButton.Visibility = Visibility.Visible;
             }
         }
@@ -49,7 +49,7 @@ namespace SalesToys
         {
             if (MessageBox.Show("Выйти из системы?", "Выход", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                User.users = null;
+                UserData.users = null;
                 MainFrame.Navigate(new LoginPage());
             }
         }

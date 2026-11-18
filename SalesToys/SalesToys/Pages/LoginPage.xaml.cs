@@ -43,7 +43,7 @@ namespace SalesToys.Pages
                 return;
             }
 
-            User.users = human;
+            UserData.users = human;
             NavigationService.Navigate(new GatalogPage());
             Message.SuccessfulAuthorization();
         }

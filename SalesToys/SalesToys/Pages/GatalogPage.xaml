@@ -15,9 +15,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" Visibility="Visible">
+        <StackPanel x:Name="FilterPanel"  Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Center" Visibility="Collapsed">
             <TextBlock Text="Поиск: "/>
-            <TextBox x:Name="txtSource" Width="150" SelectionChanged="txtSource_SelectionChanged"/>
+            <TextBox x:Name="txtSource" Width="150" TextChanged="txtSource_TextChanged"/>
             <TextBlock Text="Отсортировать по: " Margin="5,0"/>
             <ComboBox x:Name="cmbPrice" Width="Auto" SelectionChanged="cmbPrice_SelectionChanged">
                 <ComboBoxItem>Цене (Возрастание)</ComboBoxItem>
@@ -26,7 +26,7 @@
                 <ComboBoxItem>Количеству на складе (Убывание)</ComboBoxItem>
             </ComboBox>
             <TextBlock Text="Отфильтровать по: " Margin="5,0" />
-            <ComboBox x:Name="cmbSupplier" DisplayMemberPath="Supplier" Width="Auto" SelectionChanged="cmbSupplier_SelectionChanged"/>
+            <ComboBox x:Name="cmbSupplier" Width="Auto" SelectionChanged="cmbSupplier_SelectionChanged"/>
         </StackPanel>
 
         <ListBox Grid.Row="1" x:Name="lstTovar" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -60,7 +60,7 @@
                                                Loaded="FinalPrice_Loaded"/>
                                 </StackPanel>
                             <TextBlock Text="{Binding Unit, StringFormat=Единица измерения: {0}}"/>
-                            <TextBlock Text="{Binding Quantity, StringFormat=Количество на складе: {0} }"/>
+                            <TextBlock x:Name="txtColvo" Text="{Binding Quantity, StringFormat=Количество на складе: {0} }"/>
                         </StackPanel>
                         <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock Text="{Binding Discount}"/>

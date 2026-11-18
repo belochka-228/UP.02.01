@@ -22,50 +22,87 @@ namespace SalesToys.Pages
     /// </summary>
     public partial class GatalogPage : Page
     {
+        private List<Products> _allProducts = new List<Products>();
         public string Source = "";
         public string Sort = "";
         public string Fulter = "";
+        
         public GatalogPage()
         {
             InitializeComponent();
-            cmbSupplier.ItemsSource = Core.Context.Suppliers.ToList();
             LoadData();
+            UserRole();
+        }
+        private void UserRole()
+        {
+            if (UserData.users == null)
+            {
+                FilterPanel.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            switch (UserData.users.IDRoles)
+            {
+                case 1:
+                case 2:
+                    FilterPanel.Visibility = Visibility.Visible;
+                    break;
+                default:
+                    FilterPanel.Visibility = Visibility.Collapsed;
+                    break;
+            }
         }
         public void LoadData()
         {
-            var product = Core.Context.Products.Include(p => p.Category).Include(p => p.Suppliers).Include(p => p.Manufacturers).AsQueryable();
+            _allProducts = Core.Context.Products.Include(p => p.Category).Include(p => p.Suppliers).Include(p => p.Manufacturers).ToList();
+            
+            var SupplerName = Core.Context.Suppliers.Select(s => s.Supplier).Distinct().OrderBy(s => s).ToList();
+            SupplerName.Insert(0, "Все поставщики");
+            cmbSupplier.ItemsSource = SupplerName;
+            cmbSupplier.SelectedIndex = 0;
+
+            ApplyFilter();
+        }
+        public void ApplyFilter()
+        {
+            IEnumerable<Products> filteredList = _allProducts;
 
             if (!string.IsNullOrWhiteSpace(Source))
             {
-                product = product.Where(p => p.Name.ToLower().Contains(Source) || p.Unit.ToLower().Contains(Source) || p.Suppliers.Supplier.ToLower().Contains(Source)
-                || p.Manufacturers.Manufacturer.ToLower().Contains(Source) || p.Category.CategoryTovara.ToLower().Contains(Source) ||p.Description.ToLower().Contains(Source));
+                string[] SearceWords = Source.Split(new[] { ' '}, StringSplitOptions.RemoveEmptyEntries);
+                filteredList = filteredList.Where(p =>
+                {
+                    string combinedText = $"{p.Name} {p.Unit} {p.Suppliers.Supplier} {p.Manufacturers.Manufacturer} ".ToLower() +
+                    $"{p.Category.CategoryTovara} {p.Description} ".ToLower();
+                    return SearceWords.All(word => combinedText.Contains(word));
+                });
+                
+                //product = product.Where(p => p.Name.ToLower().Contains(Source) || p.Unit.ToLower().Contains(Source) || p.Suppliers.Supplier.ToLower().Contains(Source)
+                //|| p.Manufacturers.Manufacturer.ToLower().Contains(Source) || p.Category.CategoryTovara.ToLower().Contains(Source) ||p.Description.ToLower().Contains(Source));
             }
             if (!string.IsNullOrWhiteSpace(Sort))
             {
                 switch (Sort)
                 {
                     case "Цене (Возрастание)":
-                        product = product.OrderBy(p => p.Price);
+                        filteredList = filteredList.OrderBy(p => p.Price);
                         break;
                     case "Цене (Убывание)":
-                        product = product.OrderByDescending(p => p.Price); 
+                        filteredList = filteredList.OrderByDescending(p => p.Price); 
                         break;
                     case "Количеству на складе (Возрастание)":
-                        product = product.OrderBy(p => p.Quantity);
+                        filteredList = filteredList.OrderBy(p => p.Quantity);
                         break;
                     case "Количеству на складе (Убывание)":
-                        product = product.OrderByDescending(p => p.Quantity);
-                        break;
-                    default:
-                        Sort = "";
+                        filteredList = filteredList.OrderByDescending(p => p.Quantity);
                         break;
                 }
             }
             if (!string.IsNullOrWhiteSpace(Fulter))
             {
-                product = product.Where(p => p.Suppliers.Supplier == Fulter);
+                filteredList = filteredList.Where(p => p.Suppliers.Supplier == Fulter);
             }
-            lstTovar.ItemsSource = product.ToList();
+            lstTovar.ItemsSource = filteredList.ToList();
         }
 
         private void ItemBorder_Loaded(object sender, RoutedEventArgs e)
@@ -104,10 +141,10 @@ namespace SalesToys.Pages
             tb.Text = final.ToString();
         }
 
-        private void txtSource_SelectionChanged(object sender, RoutedEventArgs e)
+        private void txtSource_TextChanged(object sender, RoutedEventArgs e)
         {
-            Source = txtSource.Text.Trim().ToLower();
-            LoadData();
+            Source = txtSource.Text? .Trim().ToLower();
+            ApplyFilter();
         }
 
         private void cmbPrice_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -115,14 +152,21 @@ namespace SalesToys.Pages
             ComboBoxItem comboBoxItem = cmbPrice.SelectedItem as ComboBoxItem;
             string text = comboBoxItem.Content.ToString();
             Sort = text;
-            LoadData();
+            ApplyFilter();
         }
 
         private void cmbSupplier_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Suppliers selected = cmbSupplier.SelectedItem as Suppliers;
-            Fulter = selected.ToString();
-            LoadData();
+            string selected = cmbSupplier.SelectedItem as string;
+            if( selected == "Все поставщики")
+            {
+                Fulter = "";
+            }
+            else
+            {
+                Fulter = selected ?? "";
+            }
+            ApplyFilter();
         }
 
     }
