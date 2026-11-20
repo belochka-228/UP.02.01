@@ -44,11 +44,16 @@ namespace SalesToys.Pages
             switch (UserData.users.IDRoles)
             {
                 case 1:
+                    FilterPanel.Visibility = Visibility.Visible;
+                    TovarPanel.Visibility = Visibility.Visible;
+                    break;
                 case 2:
                     FilterPanel.Visibility = Visibility.Visible;
+                    TovarPanel.Visibility = Visibility.Collapsed;
                     break;
                 default:
                     FilterPanel.Visibility = Visibility.Collapsed;
+                    TovarPanel.Visibility = Visibility.Collapsed;
                     break;
             }
         }
@@ -169,5 +174,22 @@ namespace SalesToys.Pages
             ApplyFilter();
         }
 
+        private void ButtonAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDeleteProduct_Click(object sender, RoutedEventArgs e)
+        {
+            var BorderItem = sender as Border;
+            var product = BorderItem.DataContext as Products;
+
+            if(product != null)
+            {
+                MessageBox.Show("Вы уверены в удалении товара", "Подтверждение");
+                Core.Context.Products.Remove( product );
+                Core.Context.SaveChanges();
+            }
+        }
     }
 }

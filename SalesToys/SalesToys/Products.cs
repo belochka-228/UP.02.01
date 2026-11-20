@@ -30,8 +30,7 @@ namespace SalesToys
         public Nullable<double> Discount { get; set; }
         public Nullable<int> Quantity { get; set; }
         public string Description { get; set; }
-        public string Image  { get; set; }
-        public string ImagePath => $"Image/{Image}";
+        public string Image { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }

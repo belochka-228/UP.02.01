@@ -22,10 +22,11 @@
                 </StackPanel>
 
                 <StackPanel x:Name="PanelButton" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Выйти" Click="BtnBackLogin_Click" Width="100" Margin="5" Visibility="Visible"/>
-                    <Button Content="Профиль" Click="ProfileButton_Click" Width="100" Margin="5" Visibility="Visible"/>
+                <Button Content="Выйти" Click="BtnBackLogin_Click" Width="100" Margin="5" Visibility="Visible"/>
+                <Button Content="Профиль" Click="ProfileButton_Click" Width="100" Margin="5" Visibility="Visible"/>
                 </StackPanel>
-            </Grid>
+                <Button Grid.Column="1" Content="Назад" Width="100" x:Name="btn_Back" Click="dtn_Back_Click" HorizontalAlignment="Right" Margin="5"/>
+        </Grid>
         <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

@@ -99,6 +99,7 @@
     <Compile Include="Pages\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Partial\Products.cs" />
     <Compile Include="Products.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -33,11 +33,20 @@ namespace SalesToys
             {
                 txtFIO.Text = string.Empty;
                 PanelButton.Visibility = Visibility.Collapsed;
+                if(e.Content is LoginPage || e.Content is RegisterPag)
+                {
+                    btn_Back.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    btn_Back.Visibility= Visibility.Visible;
+                }
             }
             else
             {
                 txtFIO.Text = UserData.users.FIO;
                 PanelButton.Visibility = Visibility.Visible;
+                btn_Back.Visibility = Visibility.Collapsed;
             }
         }
         private void ProfileButton_Click(object sender, RoutedEventArgs e)
@@ -52,6 +61,11 @@ namespace SalesToys
                 UserData.users = null;
                 MainFrame.Navigate(new LoginPage());
             }
+        }
+
+        private void dtn_Back_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.GoBack();
         }
     }
 }
