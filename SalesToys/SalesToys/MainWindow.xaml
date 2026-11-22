@@ -16,16 +16,19 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" >
                     <TextBlock x:Name="txtFIO" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <StackPanel x:Name="PanelButton" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel x:Name="PanelButton" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Выйти" Click="BtnBackLogin_Click" Width="100" Margin="5" Visibility="Visible"/>
                 <Button Content="Профиль" Click="ProfileButton_Click" Width="100" Margin="5" Visibility="Visible"/>
                 </StackPanel>
-                <Button Grid.Column="1" Content="Назад" Width="100" x:Name="btn_Back" Click="dtn_Back_Click" HorizontalAlignment="Right" Margin="5"/>
+                <Button Grid.Column="2" Content="Назад" Width="100" x:Name="btn_Back" Click="dtn_Back_Click" HorizontalAlignment="Right" Margin="5"/>
+
+            <TextBlock Grid.Column="1" x:Name="txtTitle" Text="Авторизация" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

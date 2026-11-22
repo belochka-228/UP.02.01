@@ -1,0 +1,53 @@
+﻿<Window x:Class="SalesToys.WIndow.CrudProduct"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SalesToys.WIndow"
+        mc:Ignorable="d"
+        Background="{StaticResource BrushMainBackground}"
+        Title="CrudProduct" Height="450" Width="800">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border Width="500">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="650">
+                <StackPanel>
+                    <TextBlock Text="ID товара"/>
+                    <TextBox x:Name="txtID" IsReadOnly="True"/>
+                    
+                    <TextBlock Text="Фото товара"/>
+                    <TextBox x:Name="txtImage"/>
+
+                    <TextBlock Text="Наименование товара"/>
+                    <TextBox x:Name="txtName"/>
+
+                    <TextBlock Text="Категория товара"/>
+                    <ComboBox x:Name="cmbCategory" SelectedValuePath="id" DisplayMemberPath="CategotyTovara"/>
+
+                    <TextBlock Text="Описание товара"/>
+                    <TextBox x:Name="txtDescription" TextWrapping="Wrap"/>
+
+                    <TextBlock Text="Производитель"/>
+                    <ComboBox x:Name="cmbManufacturer" DisplayMemberPath="Manufacturer"/>
+
+                    <TextBlock Text="Поставщик"/>
+                    <ComboBox x:Name="cmbSupplier" DisplayMemberPath="Supplier"/>
+
+                    <TextBlock Text="Цена"/>
+                    <TextBox x:Name="txtPrice"/>
+
+                    <TextBlock Text="Единица измерения"/>
+                    <TextBox x:Name="txtUnit"/>
+
+                    <TextBlock Text="Количество на складе" Margin="0,5"/>
+                    <TextBox x:Name="txtQuantity"/>
+                    
+                    <TextBlock Text="Действующая скидка" Margin="0,5"/>
+                    <TextBox x:Name="txtDiscount"/>
+
+                    <Button Content="Сохранить" Click="BtnSave_Click" Margin="0,20,0,5"/>
+                    <Button Content="Назад без сохранения" Click="BtnBack_Click" Background="{StaticResource BrushAccent}" BorderThickness="1"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

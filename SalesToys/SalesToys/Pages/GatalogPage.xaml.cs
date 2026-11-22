@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SalesToys.WIndow;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -176,7 +177,10 @@ namespace SalesToys.Pages
 
         private void ButtonAddProduct_Click(object sender, RoutedEventArgs e)
         {
+            var crudProduct = new CrudProduct(null);
+            crudProduct.ShowDialog();
 
+            LoadData();
         }
 
         private void ButtonDeleteProduct_Click(object sender, RoutedEventArgs e)
@@ -186,9 +190,32 @@ namespace SalesToys.Pages
 
             if(product != null)
             {
-                MessageBox.Show("Вы уверены в удалении товара", "Подтверждение");
-                Core.Context.Products.Remove( product );
-                Core.Context.SaveChanges();
+                if(MessageBox.Show("Вы уверены в удалении товара", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    Core.Context.Products.Remove(product);
+                    try
+                    {
+                        Core.Context.SaveChanges();
+                        MessageBox.Show($"Товар {product.Name} успешно удален");
+                        LoadData();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка: {ex}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+                }
+            }
+        }
+
+        private void lstTovar_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedTovar = lstTovar.SelectedItem as Products;
+            if(selectedTovar != null)
+            {
+                var crudProduct = new CrudProduct(selectedTovar);
+                crudProduct.ShowDialog();
+                LoadData();
             }
         }
     }

@@ -30,7 +30,7 @@
             <ComboBox x:Name="cmbSupplier" Width="Auto" SelectionChanged="cmbSupplier_SelectionChanged"/>
         </StackPanel>
 
-        <ListBox Grid.Row="1" x:Name="lstTovar" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox Grid.Row="1" x:Name="lstTovar" SelectionChanged="lstTovar_SelectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                   <Border Padding="5" Loaded="ItemBorder_Loaded">

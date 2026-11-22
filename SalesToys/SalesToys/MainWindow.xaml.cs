@@ -53,7 +53,25 @@ namespace SalesToys
         {
             MessageBox.Show("Заглушка");
         }
+        private void MainFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            var page = e.Content as Page;
+            string pageName = page.GetType().Name;
+            if (page != null)
+            {
+                string title = "";
 
+                switch (pageName)
+                {
+                    case "LoginPage": title = ""; break;
+                    case "RegisterPag": title = ""; break;
+                    case "CatalogPage": title = ""; break;
+                    case "_3RestoranPage": title = "Выбор ресторана"; break;
+                    case "_4HallPage": title = "Выбор зала"; break;
+                }
+                txtTitle.Text = title;
+            }
+        }
         private void BtnBackLogin_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Выйти из системы?", "Выход", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
