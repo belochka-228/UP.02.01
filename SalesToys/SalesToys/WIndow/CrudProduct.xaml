@@ -6,22 +6,30 @@
         xmlns:local="clr-namespace:SalesToys.WIndow"
         mc:Ignorable="d"
         Background="{StaticResource BrushMainBackground}"
-        Title="CrudProduct" Height="450" Width="800">
+        Title="CrudProduct" Height="600" Width="800">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Border Width="500">
             <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="650">
                 <StackPanel>
-                    <TextBlock Text="ID товара"/>
-                    <TextBox x:Name="txtID" IsReadOnly="True"/>
-                    
-                    <TextBlock Text="Фото товара"/>
-                    <TextBox x:Name="txtImage"/>
+                    <StackPanel x:Name="spID" Orientation="Vertical">
+                        <TextBlock Text="ID товара"/>
+                        <TextBox x:Name="txtID" IsReadOnly="True"/>
+                    </StackPanel>
 
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Фото товара"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="txtImage" Height="20" Width="300" Margin="0,0,5,0"/>
+                            <Button Content="Загрузить фото" Height="20" Click="BtnDowlound_Click" Background="{StaticResource BrushAccent}"/>
+                        </StackPanel>
+                        <Image x:Name="ImgPreview" Height="Auto" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    
                     <TextBlock Text="Наименование товара"/>
                     <TextBox x:Name="txtName"/>
 
                     <TextBlock Text="Категория товара"/>
-                    <ComboBox x:Name="cmbCategory" SelectedValuePath="id" DisplayMemberPath="CategotyTovara"/>
+                    <ComboBox x:Name="cmbCategory"  DisplayMemberPath="CategoryTovara"/>
 
                     <TextBlock Text="Описание товара"/>
                     <TextBox x:Name="txtDescription" TextWrapping="Wrap"/>
@@ -45,7 +53,7 @@
                     <TextBox x:Name="txtDiscount"/>
 
                     <Button Content="Сохранить" Click="BtnSave_Click" Margin="0,20,0,5"/>
-                    <Button Content="Назад без сохранения" Click="BtnBack_Click" Background="{StaticResource BrushAccent}" BorderThickness="1"/>
+                    <Button Content="Назад без сохранения" Click="BtnBack_Click"  Background="{StaticResource BrushAccent}" BorderThickness="1"/>
                 </StackPanel>
             </ScrollViewer>
         </Border>

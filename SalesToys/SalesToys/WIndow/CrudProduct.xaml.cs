@@ -10,8 +10,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using SalesToys;
+using Microsoft.Win32;
+using System.IO;
 
 namespace SalesToys.WIndow
 {
@@ -20,11 +21,15 @@ namespace SalesToys.WIndow
     /// </summary>
     public partial class CrudProduct : Window
     {
-        private Products _currentProduct;
+        private string _selectedNewFilePath = null; //путь к новому файлу
+        private string _currentSavedFilePath = null; //путь к текущему сохраненному файлу
+        private readonly string _imagesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Image");
+        private Products _currentProduct; 
         public CrudProduct(Products products)
         {
             InitializeComponent();
             _currentProduct = products ?? new Products();
+            _currentSavedFilePath = _currentProduct.Image;
             LoadData();
             FillFields();
         }
@@ -36,11 +41,16 @@ namespace SalesToys.WIndow
         }
         private void FillFields()
         {
+            if (!string.IsNullOrEmpty(_currentSavedFilePath))
+            {
+                DisplayImage(Path.Combine(_imagesFolder, _currentSavedFilePath));
+            }
+
             if (!string.IsNullOrWhiteSpace(_currentProduct.Artikul))
             {
-                txtID.Visibility = Visibility.Visible;
+                spID.Visibility = Visibility.Visible;
                 txtID.Text = _currentProduct.Artikul;
-                txtImage.Text = _currentProduct.Image.ToString();
+                txtImage.Text = _currentProduct.Image ?? string.Empty;
                 txtName.Text = _currentProduct.Name;
                 cmbCategory.SelectedValue = _currentProduct.IDGategori;
                 txtDescription.Text = _currentProduct.Description;
@@ -53,17 +63,18 @@ namespace SalesToys.WIndow
             }
             else
             {
-                txtID.Visibility = Visibility.Collapsed;
+                spID.Visibility = Visibility.Collapsed;
                 txtUnit.Text = "шт.";
             }
+
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtName.Text) ||
-                string.IsNullOrWhiteSpace(cmbCategory.SelectedValue as string) ||
-                string.IsNullOrWhiteSpace(cmbManufacturer.SelectedValue as string) ||
-                string.IsNullOrWhiteSpace(cmbSupplier.SelectedValue as string) ||
+                cmbCategory.SelectedItem == null ||
+                cmbManufacturer.SelectedItem == null ||
+                cmbSupplier.SelectedItem == null ||
                 string.IsNullOrWhiteSpace(txtPrice.Text) ||
                 string.IsNullOrWhiteSpace(txtUnit.Text) ||
                 string.IsNullOrWhiteSpace(txtQuantity.Text) ||
@@ -82,13 +93,75 @@ namespace SalesToys.WIndow
                 MessageBox.Show("Количество товара не может быть отрицательным");
                 return;
             }
+            if (!string.IsNullOrEmpty(_selectedNewFilePath))
+            {
+                try
+                {
+                    if (!Directory.Exists(_imagesFolder))
+                    {
+                        Directory.CreateDirectory(_imagesFolder);
+                    }
+                    string fileName = Path.GetFileName(_selectedNewFilePath);
+                    string destinationPath = Path.Combine(_imagesFolder, fileName);
+
+                    File.Copy(_selectedNewFilePath, destinationPath, overwrite: true);
+
+                    _currentSavedFilePath = fileName;
+                    _selectedNewFilePath = null;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при сохранении изображения: {ex}");
+                }
+            }
+
             _currentProduct.Name = txtName.Text.Trim();
             _currentProduct.Description = txtDescription.Text.Trim();
+
             _currentProduct.Image = string.IsNullOrWhiteSpace(txtImage.Text) ? null : txtImage.Text.Trim();
 
-            _currentProduct.IDGategori = cmbCategory.SelectedIndex;
-            _currentProduct.IDManufacturers = cmbManufacturer.SelectedIndex;
-            _currentProduct.IDSuppliers = cmbSupplier.SelectedIndex;
+            _currentProduct.IDGategori = (int)cmbCategory.SelectedValue;
+            _currentProduct.IDManufacturers = (int)cmbManufacturer.SelectedValue;
+            _currentProduct.IDSuppliers = (int)cmbSupplier.SelectedValue;
+            _currentProduct.Price = (double)price;
+            _currentProduct.Unit = txtUnit.Text.Trim();
+            _currentProduct.Quantity = quantity;
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            _selectedNewFilePath = null;
+            Close();
+        }
+
+        private void BtnDowlound_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Title = "Выберите изображение",
+                Filter = "Изображения (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png"
+            };
+            if(openFileDialog.ShowDialog() ==true)
+            {
+                _selectedNewFilePath = openFileDialog.FileName;
+                txtImage.Text = Path.GetFileName(_selectedNewFilePath);
+                DisplayImage(_selectedNewFilePath);
+            }
+        }
+        private void DisplayImage(string FileName)
+        {
+            if(string.IsNullOrWhiteSpace(FileName) || !File.Exists(FileName))
+            {
+                ImgPreview.Source = null;
+                return;
+            }
+            BitmapImage bitmap = new BitmapImage(); //контейнер для изображения
+            bitmap.BeginInit(); //настраиваем без загрузки
+            bitmap.UriSource = new Uri(FileName); //точный адрес изображения
+            bitmap.CacheOption = BitmapCacheOption.OnLoad; //загрузка в кеш
+            bitmap.EndInit(); // загрузка
+
+            ImgPreview.Source = bitmap; //привязка
         }
     }
 }
