@@ -34,6 +34,7 @@ namespace SalesToys
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }
 }

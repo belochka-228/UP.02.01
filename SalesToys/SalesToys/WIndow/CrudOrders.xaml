@@ -1,0 +1,59 @@
+﻿<Window x:Class="SalesToys.WIndow.CrudOrders"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SalesToys.WIndow"
+        mc:Ignorable="d"
+        Title="CrudOrders" Height="450" Width="800">
+
+    <Grid Margin="20">
+        <Border Width="500">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="650">
+                <StackPanel>
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Артикул товара:" Margin="0,0,0,4"/>
+                        <ComboBox x:Name="cmbArtikul" DisplayMemberPath="Artikul" SelectedValuePath="IDProduct"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Статус заказа:" Margin="0,0,0,4"/>
+                        <ComboBox x:Name="cmbStatus" DisplayMemberPath="StatusOrder" SelectedValuePath="ID"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Адрес пункта выдачи:" Margin="0,0,0,4"/>
+                        <ComboBox x:Name="cmbPVZ" SelectedValuePath="ID">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Run Text="{Binding Index}"/>
+                                        <Run Text=", "/>
+                                        <Run Text="{Binding City}"/>
+                                        <Run Text=", "/>
+                                        <Run Text="{Binding Street}"/>
+                                        <Run Text=", "/>
+                                        <Run Text="{Binding Home}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Дата заказа:" Margin="0,0,0,4"/>
+                        <DatePicker x:Name="dpOrderDate"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,10">
+                        <TextBlock Text="Дата выдачи:" Margin="0,0,0,4"/>
+                        <DatePicker x:Name="dpDeliveryDate"/>
+                    </StackPanel>
+
+                    <Button Content="Сохранить" Click="BtnSave_Click" Margin="0,20,0,5"/>
+                    <Button Content="Назад без сохранения" Click="BtnBack_Click"  Background="{StaticResource BrushAccent}" BorderThickness="1"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

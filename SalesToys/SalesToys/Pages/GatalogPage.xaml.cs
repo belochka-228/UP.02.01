@@ -47,14 +47,17 @@ namespace SalesToys.Pages
                 case 1:
                     FilterPanel.Visibility = Visibility.Visible;
                     TovarPanel.Visibility = Visibility.Visible;
+                    btnOrder.Visibility = Visibility.Visible;
                     break;
                 case 2:
                     FilterPanel.Visibility = Visibility.Visible;
                     TovarPanel.Visibility = Visibility.Collapsed;
+                    btnOrder.Visibility= Visibility.Visible;
                     break;
                 default:
                     FilterPanel.Visibility = Visibility.Collapsed;
                     TovarPanel.Visibility = Visibility.Collapsed;
+                    btnOrder.Visibility = Visibility.Collapsed;
                     break;
             }
         }
@@ -185,31 +188,33 @@ namespace SalesToys.Pages
 
         private void ButtonDeleteProduct_Click(object sender, RoutedEventArgs e)
         {
-            var BorderItem = sender as Border;
-            var product = BorderItem.DataContext as Products;
-
-            if(product != null)
+            var product = lstTovar.SelectedItem as Products;
+            if (product == null)
             {
-                if(MessageBox.Show("Вы уверены в удалении товара", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                MessageBox.Show("Сначала выберите товар!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (MessageBox.Show($"Вы уверены в удалении товара \"{product.Name}\"?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                try
                 {
                     Core.Context.Products.Remove(product);
-                    try
-                    {
-                        Core.Context.SaveChanges();
-                        MessageBox.Show($"Товар {product.Name} успешно удален");
-                        LoadData();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Ошибка: {ex}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                    }
+                    Core.Context.SaveChanges();
+                    MessageBox.Show($"Товар {product.Name} успешно удален");
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
         private void lstTovar_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (UserData.users == null || UserData.users.IDRoles != 1)
+                return;
             var selectedTovar = lstTovar.SelectedItem as Products;
             if(selectedTovar != null)
             {
@@ -217,6 +222,11 @@ namespace SalesToys.Pages
                 crudProduct.ShowDialog();
                 LoadData();
             }
+        }
+
+        private void BtnOrders_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new OrdersPage());
         }
     }
 }

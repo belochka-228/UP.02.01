@@ -19,16 +19,14 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" >
-                    <TextBlock x:Name="txtFIO" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtFIO" HorizontalAlignment="Left" FontSize="18" Margin="5" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <StackPanel x:Name="PanelButton" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Выйти" Click="BtnBackLogin_Click" Width="100" Margin="5" Visibility="Visible"/>
-                <Button Content="Профиль" Click="ProfileButton_Click" Width="100" Margin="5" Visibility="Visible"/>
-                </StackPanel>
-                <Button Grid.Column="2" Content="Назад" Width="100" x:Name="btn_Back" Click="dtn_Back_Click" HorizontalAlignment="Right" Margin="5"/>
-
-            <TextBlock Grid.Column="1" x:Name="txtTitle" Text="Авторизация" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Назад" Width="100" x:Name="btn_Back" Click="dtn_Back_Click" HorizontalAlignment="Right" Margin="5"/>
+                <Button x:Name="BtnButton" Content="Выйти" Click="BtnBackLogin_Click" Width="100" Margin="5" Visibility="Visible"/>
+            </StackPanel>
+            <TextBlock Grid.Column="1" x:Name="txtTitle" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <Frame Grid.Row="1" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

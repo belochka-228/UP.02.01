@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище ToysModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище ToysModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID" />
@@ -25,14 +25,14 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="IDOrder" Type="int" Nullable="false" />
-          <Property Name="Artikul" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IDProduct" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="IDOrder" />
           </Key>
-          <Property Name="IDOrder" Type="int" Nullable="false" />
+          <Property Name="IDOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderDate" Type="datetime" Nullable="false" />
           <Property Name="DeliveryDate" Type="datetime" Nullable="false" />
           <Property Name="AddressPoint" Type="int" Nullable="false" />
@@ -42,17 +42,18 @@
         </EntityType>
         <EntityType Name="Products">
           <Key>
-            <PropertyRef Name="Artikul" />
+            <PropertyRef Name="IDProduct" />
           </Key>
+          <Property Name="IDProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Artikul" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" />
-          <Property Name="Unit" Type="nvarchar" MaxLength="255" />
-          <Property Name="Price" Type="float" />
-          <Property Name="IDSuppliers" Type="int" />
-          <Property Name="IDManufacturers" Type="int" />
-          <Property Name="IDGategori" Type="int" />
-          <Property Name="Discount" Type="float" />
-          <Property Name="Quantity" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="IDSuppliers" Type="int" Nullable="false" />
+          <Property Name="IDManufacturers" Type="int" Nullable="false" />
+          <Property Name="IDGategori" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="float" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Image" Type="nvarchar" MaxLength="255" />
         </EntityType>
@@ -87,6 +88,16 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Supplier" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -114,10 +125,10 @@
           <End Role="OrderProduct" Type="Self.OrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
-              <PropertyRef Name="Artikul" />
+              <PropertyRef Name="IDProduct" />
             </Principal>
             <Dependent Role="OrderProduct">
-              <PropertyRef Name="Artikul" />
+              <PropertyRef Name="IDProduct" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -158,7 +169,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
@@ -170,7 +181,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Manufacturers">
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Manufacturers">
@@ -182,7 +193,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Suppliers">
-          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Suppliers">
@@ -215,6 +226,7 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_OrderProduct_Orders" Association="Self.FK_OrderProduct_Orders">
             <End Role="Orders" EntitySet="Orders" />
@@ -253,8 +265,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ToysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -280,7 +291,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="IDOrder" Type="Int32" Nullable="false" />
-          <Property Name="Artikul" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDProduct" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_OrderProduct_Orders" FromRole="OrderProduct" ToRole="Orders" />
           <NavigationProperty Name="Products" Relationship="Self.FK_OrderProduct_Products" FromRole="OrderProduct" ToRole="Products" />
@@ -303,17 +314,18 @@
         </EntityType>
         <EntityType Name="Products">
           <Key>
-            <PropertyRef Name="Artikul" />
+            <PropertyRef Name="IDProduct" />
           </Key>
+          <Property Name="IDProduct" Type="Int32" Nullable="false" />
           <Property Name="Artikul" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Double" />
-          <Property Name="IDSuppliers" Type="Int32" />
-          <Property Name="IDManufacturers" Type="Int32" />
-          <Property Name="IDGategori" Type="Int32" />
-          <Property Name="Discount" Type="Double" />
-          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="IDSuppliers" Type="Int32" Nullable="false" />
+          <Property Name="IDManufacturers" Type="Int32" Nullable="false" />
+          <Property Name="IDGategori" Type="Int32" Nullable="false" />
+          <Property Name="Discount" Type="Double" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Products_Category" FromRole="Products" ToRole="Category" />
@@ -356,6 +368,16 @@
           <Property Name="Supplier" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Products_Suppliers" FromRole="Suppliers" ToRole="Products" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -369,7 +391,7 @@
           <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
         </EntityType>
         <Association Name="FK_Products_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
@@ -381,7 +403,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Manufacturers">
-          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="0..1" />
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Manufacturers">
@@ -409,10 +431,10 @@
           <End Role="OrderProduct" Type="Self.OrderProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
-              <PropertyRef Name="Artikul" />
+              <PropertyRef Name="IDProduct" />
             </Principal>
             <Dependent Role="OrderProduct">
-              <PropertyRef Name="Artikul" />
+              <PropertyRef Name="IDProduct" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -453,7 +475,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Suppliers">
-          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Suppliers">
@@ -486,6 +508,7 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Users" EntityType="Self.Users" />
           <AssociationSet Name="FK_Products_Category" Association="Self.FK_Products_Category">
             <End Role="Category" EntitySet="Category" />
@@ -551,7 +574,7 @@
               <MappingFragment StoreEntitySet="OrderProduct">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="IDOrder" ColumnName="IDOrder" />
-                <ScalarProperty Name="Artikul" ColumnName="Artikul" />
+                <ScalarProperty Name="IDProduct" ColumnName="IDProduct" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -572,6 +595,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="ToysModel.Products">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="IDProduct" ColumnName="IDProduct" />
                 <ScalarProperty Name="Artikul" ColumnName="Artikul" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
@@ -618,6 +642,17 @@
               <MappingFragment StoreEntitySet="Suppliers">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ToysModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

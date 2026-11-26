@@ -49,8 +49,9 @@ namespace SalesToys.WIndow
             if (!string.IsNullOrWhiteSpace(_currentProduct.Artikul))
             {
                 spID.Visibility = Visibility.Visible;
-                txtID.Text = _currentProduct.Artikul;
+                txtID.Text = _currentProduct.IDProduct.ToString();
                 txtImage.Text = _currentProduct.Image ?? string.Empty;
+                txtArtikul.Text = _currentProduct.Artikul ?? string.Empty;
                 txtName.Text = _currentProduct.Name;
                 cmbCategory.SelectedValue = _currentProduct.IDGategori;
                 txtDescription.Text = _currentProduct.Description;
@@ -71,28 +72,38 @@ namespace SalesToys.WIndow
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text) ||
-                cmbCategory.SelectedItem == null ||
-                cmbManufacturer.SelectedItem == null ||
-                cmbSupplier.SelectedItem == null ||
+            if (string.IsNullOrWhiteSpace(txtArtikul.Text) ||
+                string.IsNullOrWhiteSpace(txtName.Text) ||
+                cmbCategory.SelectedValue == null ||
+                cmbManufacturer.SelectedValue == null ||
+                cmbSupplier.SelectedValue == null ||
                 string.IsNullOrWhiteSpace(txtPrice.Text) ||
                 string.IsNullOrWhiteSpace(txtUnit.Text) ||
                 string.IsNullOrWhiteSpace(txtQuantity.Text) ||
                 string.IsNullOrWhiteSpace(txtDiscount.Text))
             {
                 MessageBox.Show("Заполните обязательные поля");
-                return; 
+                return;
             }
-            if(!decimal.TryParse(txtPrice.Text, out decimal price) || price <= 0)
+
+            if (!decimal.TryParse(txtPrice.Text, out decimal price) || price <= 0)
             {
                 MessageBox.Show("Цена должна быть числом больше 0");
                 return;
             }
-            if(!int.TryParse(txtQuantity.Text, out int quantity) || quantity < 0)
+
+            if (!int.TryParse(txtQuantity.Text, out int quantity) || quantity < 0)
             {
                 MessageBox.Show("Количество товара не может быть отрицательным");
                 return;
             }
+
+            if (!double.TryParse(txtDiscount.Text, out double discount) || discount < 0)
+            {
+                MessageBox.Show("Скидка должна быть числом не меньше 0");
+                return;
+            }
+
             if (!string.IsNullOrEmpty(_selectedNewFilePath))
             {
                 try
@@ -109,23 +120,40 @@ namespace SalesToys.WIndow
                     _currentSavedFilePath = fileName;
                     _selectedNewFilePath = null;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка при сохранении изображения: {ex}");
+                    MessageBox.Show($"Ошибка при сохранении изображения: {ex.Message}");
+                    return;
                 }
             }
 
+            _currentProduct.Artikul = txtArtikul.Text.Trim();
             _currentProduct.Name = txtName.Text.Trim();
             _currentProduct.Description = txtDescription.Text.Trim();
-
             _currentProduct.Image = string.IsNullOrWhiteSpace(txtImage.Text) ? null : txtImage.Text.Trim();
-
             _currentProduct.IDGategori = (int)cmbCategory.SelectedValue;
             _currentProduct.IDManufacturers = (int)cmbManufacturer.SelectedValue;
             _currentProduct.IDSuppliers = (int)cmbSupplier.SelectedValue;
             _currentProduct.Price = (double)price;
             _currentProduct.Unit = txtUnit.Text.Trim();
             _currentProduct.Quantity = quantity;
+            _currentProduct.Discount = discount;
+
+            if (_currentProduct.IDProduct == 0)
+            {
+                Core.Context.Products.Add(_currentProduct);
+            }
+
+            try
+            {
+                Core.Context.SaveChanges();
+                MessageBox.Show("Данные сохранены");
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении: {ex.Message}");
+            }
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

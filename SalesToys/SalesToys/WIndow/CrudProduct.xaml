@@ -16,6 +16,9 @@
                         <TextBox x:Name="txtID" IsReadOnly="True"/>
                     </StackPanel>
 
+                    <TextBlock Text="Артикул товара"/>
+                    <TextBox x:Name="txtArtikul"/>
+                    
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Фото товара"/>
                         <StackPanel Orientation="Horizontal">
@@ -29,16 +32,16 @@
                     <TextBox x:Name="txtName"/>
 
                     <TextBlock Text="Категория товара"/>
-                    <ComboBox x:Name="cmbCategory"  DisplayMemberPath="CategoryTovara"/>
+                    <ComboBox x:Name="cmbCategory" SelectedValuePath="ID"  DisplayMemberPath="CategoryTovara"/>
 
                     <TextBlock Text="Описание товара"/>
                     <TextBox x:Name="txtDescription" TextWrapping="Wrap"/>
 
                     <TextBlock Text="Производитель"/>
-                    <ComboBox x:Name="cmbManufacturer" DisplayMemberPath="Manufacturer"/>
+                    <ComboBox x:Name="cmbManufacturer" SelectedValuePath="ID" DisplayMemberPath="Manufacturer"/>
 
                     <TextBlock Text="Поставщик"/>
-                    <ComboBox x:Name="cmbSupplier" DisplayMemberPath="Supplier"/>
+                    <ComboBox x:Name="cmbSupplier" SelectedValuePath="ID" DisplayMemberPath="Supplier"/>
 
                     <TextBlock Text="Цена"/>
                     <TextBox x:Name="txtPrice"/>

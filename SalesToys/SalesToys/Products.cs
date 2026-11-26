@@ -11,7 +11,7 @@ namespace SalesToys
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Products
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,18 +20,19 @@ namespace SalesToys
             this.OrderProduct = new HashSet<OrderProduct>();
         }
     
+        public int IDProduct { get; set; }
         public string Artikul { get; set; }
         public string Name { get; set; }
         public string Unit { get; set; }
-        public Nullable<double> Price { get; set; }
-        public Nullable<int> IDSuppliers { get; set; }
-        public Nullable<int> IDManufacturers { get; set; }
-        public Nullable<int> IDGategori { get; set; }
-        public Nullable<double> Discount { get; set; }
-        public Nullable<int> Quantity { get; set; }
+        public double Price { get; set; }
+        public int IDSuppliers { get; set; }
+        public int IDManufacturers { get; set; }
+        public int IDGategori { get; set; }
+        public double Discount { get; set; }
+        public int Quantity { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
-
+    
         public virtual Category Category { get; set; }
         public virtual Manufacturers Manufacturers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

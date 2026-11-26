@@ -16,7 +16,7 @@ namespace SalesToys
     {
         public int ID { get; set; }
         public int IDOrder { get; set; }
-        public string Artikul { get; set; }
+        public int IDProduct { get; set; }
         public int Quantity { get; set; }
     
         public virtual Orders Orders { get; set; }

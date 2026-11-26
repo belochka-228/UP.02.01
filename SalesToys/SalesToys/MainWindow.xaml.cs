@@ -32,7 +32,7 @@ namespace SalesToys
             if (UserData.users == null)
             {
                 txtFIO.Text = string.Empty;
-                PanelButton.Visibility = Visibility.Collapsed;
+                BtnButton.Visibility = Visibility.Collapsed;
                 if(e.Content is LoginPage || e.Content is RegisterPag)
                 {
                     btn_Back.Visibility = Visibility.Collapsed;
@@ -45,13 +45,9 @@ namespace SalesToys
             else
             {
                 txtFIO.Text = UserData.users.FIO;
-                PanelButton.Visibility = Visibility.Visible;
+                BtnButton.Visibility = Visibility.Visible;
                 btn_Back.Visibility = Visibility.Collapsed;
             }
-        }
-        private void ProfileButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Заглушка");
         }
         private void MainFrame_Navigating(object sender, NavigatingCancelEventArgs e)
         {

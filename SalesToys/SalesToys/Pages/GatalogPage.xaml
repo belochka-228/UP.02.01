@@ -71,6 +71,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button x:Name="btnOrder" Content="Заказы" Width="200" Margin="10" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Click="BtnOrders_Click" Visibility="Collapsed"/>
         <StackPanel x:Name="TovarPanel" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Visibility="Collapsed">
             <Button Content="Добавить товар" Width="200" Click="ButtonAddProduct_Click"/>
             <Button Content="Удалить товар" Width="200" Click="ButtonDeleteProduct_Click"/>
