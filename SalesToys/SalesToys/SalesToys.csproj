@@ -217,6 +217,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="db\script.txt" />
     <Content Include="Image\1.JPG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
