@@ -1,6 +1,6 @@
-﻿USE [Toys2]
+﻿USE [Toys3]
 GO
-/****** Object:  Table [dbo].[Category]    Script Date: 26.11.2026 17:50:44 ******/
+/****** Object:  Table [dbo].[Category]    Script Date: 27.11.2026 15:11:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[Category](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Manufacturers]    Script Date: 26.11.2026 17:50:44 ******/
+/****** Object:  Table [dbo].[Manufacturers]    Script Date: 27.11.2026 15:11:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -28,7 +28,7 @@ CREATE TABLE [dbo].[Manufacturers](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OrderProduct]    Script Date: 26.11.2026 17:50:44 ******/
+/****** Object:  Table [dbo].[OrderProduct]    Script Date: 27.11.2026 15:11:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -44,13 +44,14 @@ CREATE TABLE [dbo].[OrderProduct](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Orders]    Script Date: 26.11.2026 17:50:44 ******/
+/****** Object:  Table [dbo].[Orders]    Script Date: 27.11.2026 15:11:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Orders](
 	[IDOrder] [int] IDENTITY(1,1) NOT NULL,
+	[Artikul] [nvarchar](100) NOT NULL,
 	[OrderDate] [datetime] NOT NULL,
 	[DeliveryDate] [datetime] NOT NULL,
 	[AddressPoint] [int] NOT NULL,
@@ -63,7 +64,7 @@ CREATE TABLE [dbo].[Orders](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Products]    Script Date: 26.11.2026 17:50:44 ******/
+/****** Object:  Table [dbo].[Products]    Script Date: 27.11.2026 15:11:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -87,24 +88,21 @@ CREATE TABLE [dbo].[Products](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PVZ]    Script Date: 26.11.2026 17:50:44 ******/
+/****** Object:  Table [dbo].[PVZ]    Script Date: 27.11.2026 15:11:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[PVZ](
 	[ID] [int] NOT NULL,
-	[Index] [int] NOT NULL,
-	[City] [nvarchar](255) NOT NULL,
-	[Street] [nvarchar](255) NOT NULL,
-	[Home] [int] NULL,
+	[Address] [nvarchar](255) NOT NULL,
  CONSTRAINT [PK_PVZ] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Roles]    Script Date: 26.11.2026 17:50:44 ******/
+/****** Object:  Table [dbo].[Roles]    Script Date: 27.11.2026 15:11:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -118,7 +116,7 @@ CREATE TABLE [dbo].[Roles](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Status]    Script Date: 26.11.2026 17:50:44 ******/
+/****** Object:  Table [dbo].[Status]    Script Date: 27.11.2026 15:11:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -132,7 +130,7 @@ CREATE TABLE [dbo].[Status](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Suppliers]    Script Date: 26.11.2026 17:50:44 ******/
+/****** Object:  Table [dbo].[Suppliers]    Script Date: 27.11.2026 15:11:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -146,7 +144,7 @@ CREATE TABLE [dbo].[Suppliers](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 26.11.2026 17:50:44 ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 27.11.2026 15:11:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -223,25 +221,25 @@ SET IDENTITY_INSERT [dbo].[OrderProduct] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Orders] ON 
 GO
-INSERT [dbo].[Orders] ([IDOrder], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (1, CAST(N'2025-02-27T00:00:00.000' AS DateTime), CAST(N'2025-04-20T00:00:00.000' AS DateTime), 1, 7, 901, 2)
+INSERT [dbo].[Orders] ([IDOrder], [Artikul], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (1, N'PMEZMH, 2, BPV4MM, 2', CAST(N'2025-02-27T00:00:00.000' AS DateTime), CAST(N'2025-04-20T00:00:00.000' AS DateTime), 1, 7, 901, 2)
 GO
-INSERT [dbo].[Orders] ([IDOrder], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (2, CAST(N'2024-09-28T00:00:00.000' AS DateTime), CAST(N'2025-04-21T00:00:00.000' AS DateTime), 11, 8, 902, 2)
+INSERT [dbo].[Orders] ([IDOrder], [Artikul], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (2, N'JVL42J, 1, F895RB, 1', CAST(N'2024-09-28T00:00:00.000' AS DateTime), CAST(N'2025-04-21T00:00:00.000' AS DateTime), 11, 8, 902, 2)
 GO
-INSERT [dbo].[Orders] ([IDOrder], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (3, CAST(N'2025-03-21T00:00:00.000' AS DateTime), CAST(N'2025-04-22T00:00:00.000' AS DateTime), 2, 9, 903, 2)
+INSERT [dbo].[Orders] ([IDOrder], [Artikul], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (3, N'3XBOTN, 10, 3L7RCZ, 10', CAST(N'2025-03-21T00:00:00.000' AS DateTime), CAST(N'2025-04-22T00:00:00.000' AS DateTime), 2, 9, 903, 2)
 GO
-INSERT [dbo].[Orders] ([IDOrder], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (4, CAST(N'2025-02-20T00:00:00.000' AS DateTime), CAST(N'2025-04-23T00:00:00.000' AS DateTime), 11, 10, 904, 2)
+INSERT [dbo].[Orders] ([IDOrder], [Artikul], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (4, N'S72AM3, 5, 2G3280, 4', CAST(N'2025-02-20T00:00:00.000' AS DateTime), CAST(N'2025-04-23T00:00:00.000' AS DateTime), 11, 10, 904, 2)
 GO
-INSERT [dbo].[Orders] ([IDOrder], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (5, CAST(N'2025-03-17T00:00:00.000' AS DateTime), CAST(N'2025-04-24T00:00:00.000' AS DateTime), 2, 7, 905, 2)
+INSERT [dbo].[Orders] ([IDOrder], [Artikul], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (5, N'MIO8YV, 2, UER2QD, 2', CAST(N'2025-03-17T00:00:00.000' AS DateTime), CAST(N'2025-04-24T00:00:00.000' AS DateTime), 2, 7, 905, 2)
 GO
-INSERT [dbo].[Orders] ([IDOrder], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (6, CAST(N'2025-03-01T00:00:00.000' AS DateTime), CAST(N'2025-04-25T00:00:00.000' AS DateTime), 15, 8, 906, 2)
+INSERT [dbo].[Orders] ([IDOrder], [Artikul], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (6, N'PMEZMH, 2, BPV4MM, 2', CAST(N'2025-03-01T00:00:00.000' AS DateTime), CAST(N'2025-04-25T00:00:00.000' AS DateTime), 15, 8, 906, 2)
 GO
-INSERT [dbo].[Orders] ([IDOrder], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (7, CAST(N'2025-02-28T00:00:00.000' AS DateTime), CAST(N'2025-04-26T00:00:00.000' AS DateTime), 3, 9, 907, 2)
+INSERT [dbo].[Orders] ([IDOrder], [Artikul], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (7, N'JVL42J, 1, F895RB, 1', CAST(N'2025-02-28T00:00:00.000' AS DateTime), CAST(N'2025-04-26T00:00:00.000' AS DateTime), 3, 9, 907, 2)
 GO
-INSERT [dbo].[Orders] ([IDOrder], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (8, CAST(N'2025-03-31T00:00:00.000' AS DateTime), CAST(N'2025-04-27T00:00:00.000' AS DateTime), 19, 10, 908, 1)
+INSERT [dbo].[Orders] ([IDOrder], [Artikul], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (8, N'3XBOTN, 10, 3L7RCZ, 10', CAST(N'2025-03-31T00:00:00.000' AS DateTime), CAST(N'2025-04-27T00:00:00.000' AS DateTime), 19, 10, 908, 1)
 GO
-INSERT [dbo].[Orders] ([IDOrder], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (9, CAST(N'2025-04-02T00:00:00.000' AS DateTime), CAST(N'2025-04-28T00:00:00.000' AS DateTime), 5, 9, 909, 1)
+INSERT [dbo].[Orders] ([IDOrder], [Artikul], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (9, N'S72AM3, 5, 2G3280, 4', CAST(N'2025-04-02T00:00:00.000' AS DateTime), CAST(N'2025-04-28T00:00:00.000' AS DateTime), 5, 9, 909, 1)
 GO
-INSERT [dbo].[Orders] ([IDOrder], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (10, CAST(N'2025-04-03T00:00:00.000' AS DateTime), CAST(N'2025-04-29T00:00:00.000' AS DateTime), 19, 10, 910, 1)
+INSERT [dbo].[Orders] ([IDOrder], [Artikul], [OrderDate], [DeliveryDate], [AddressPoint], [IDUsers], [Kod], [IDStatus]) VALUES (10, N'MIO8YV, 2, UER2QD, 2', CAST(N'2025-04-03T00:00:00.000' AS DateTime), CAST(N'2025-04-29T00:00:00.000' AS DateTime), 19, 10, 910, 1)
 GO
 SET IDENTITY_INSERT [dbo].[Orders] OFF
 GO
@@ -269,77 +267,77 @@ INSERT [dbo].[Products] ([IDProduct], [Artikul], [Name], [Unit], [Price], [IDSup
 GO
 SET IDENTITY_INSERT [dbo].[Products] OFF
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (1, 420151, N'г. Лесной', N'ул. Вишневая', 32)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (1, N'420151, г. Лесной, ул. Вишневая, 32')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (2, 125061, N'г. Лесной', N'ул. Подгорная', 8)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (2, N'125061, г. Лесной, ул. Подгорная, 8')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (3, 630370, N'г. Лесной', N'ул. Шоссейная', 24)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (3, N'630370, г. Лесной, ул. Шоссейная, 24')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (4, 400562, N'г. Лесной', N'ул. Зеленая', 32)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (4, N'400562, г. Лесной, ул. Зеленая, 32')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (5, 614510, N'г. Лесной', N'ул. Маяковского', 47)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (5, N'614510, г. Лесной, ул. Маяковского, 47')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (6, 410542, N'г. Лесной', N'ул. Светлая', 46)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (6, N'410542, г. Лесной, ул. Светлая, 46')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (7, 620839, N'г. Лесной', N'ул. Цветочная', 8)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (7, N'620839, г. Лесной, ул. Цветочная, 8')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (8, 443890, N'г. Лесной', N'ул. Коммунистическая', 1)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (8, N'443890, г. Лесной, ул. Коммунистическая, 1')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (9, 603379, N'г. Лесной', N'ул. Спортивная', 46)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (9, N'603379, г. Лесной, ул. Спортивная, 46')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (10, 603721, N'г. Лесной', N'ул. Гоголя', 41)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (10, N'603721, г. Лесной, ул. Гоголя, 41')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (11, 410172, N'г. Лесной', N'ул. Северная', 13)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (11, N'410172, г. Лесной, ул. Северная, 13')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (12, 614611, N'г. Лесной', N'ул. Молодежная', 50)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (12, N'614611, г. Лесной, ул. Молодежная, 50')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (13, 454311, N'г. Лесной', N'ул. Новая', 19)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (13, N'454311, г.Лесной, ул. Новая, 19')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (14, 660007, N'г. Лесной', N'ул. Октябрьская', 19)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (14, N'660007, г.Лесной, ул. Октябрьская, 19')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (15, 603036, N'г. Лесной', N'ул. Садовая', 4)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (15, N'603036, г. Лесной, ул. Садовая, 4')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (16, 394060, N'г. Лесной', N'ул. Фрунзе', 43)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (16, N'394060, г.Лесной, ул. Фрунзе, 43')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (17, 410661, N'г. Лесной', N'ул. Школьная', 50)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (17, N'410661, г. Лесной, ул. Школьная, 50')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (18, 625590, N'г. Лесной', N'ул. Коммунистическая', 20)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (18, N'625590, г. Лесной, ул. Коммунистическая, 20')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (19, 625683, N'г. Лесной', N'ул. 8 Марта', NULL)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (19, N'625683, г. Лесной, ул. 8 Марта')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (20, 450983, N'г. Лесной', N'ул. Комсомольская', 26)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (20, N'450983, г.Лесной, ул. Комсомольская, 26')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (21, 394782, N'г. Лесной', N'ул. Чехова', 3)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (21, N'394782, г. Лесной, ул. Чехова, 3')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (22, 603002, N'г. Лесной', N'ул. Дзержинского', 28)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (22, N'603002, г. Лесной, ул. Дзержинского, 28')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (23, 450558, N'г. Лесной', N'ул. Набережная', 30)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (23, N'450558, г. Лесной, ул. Набережная, 30')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (24, 344288, N'г. Лесной', N'ул. Чехова', 1)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (24, N'344288, г. Лесной, ул. Чехова, 1')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (25, 614164, N'г. Лесной', N'ул. Степная', 30)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (25, N'614164, г.Лесной,  ул. Степная, 30')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (26, 394242, N'г. Лесной', N'ул. Коммунистическая', 43)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (26, N'394242, г. Лесной, ул. Коммунистическая, 43')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (27, 660540, N'г. Лесной', N'ул. Солнечная', 25)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (27, N'660540, г. Лесной, ул. Солнечная, 25')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (28, 125837, N'г. Лесной', N'ул. Шоссейная', 40)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (28, N'125837, г. Лесной, ул. Шоссейная, 40')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (29, 125703, N'г. Лесной', N'ул. Партизанская', 49)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (29, N'125703, г. Лесной, ул. Партизанская, 49')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (30, 625283, N'г. Лесной', N'ул. Победы', 46)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (30, N'625283, г. Лесной, ул. Победы, 46')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (31, 614753, N'г. Лесной', N'ул. Полевая', 35)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (31, N'614753, г. Лесной, ул. Полевая, 35')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (32, 426030, N'г. Лесной', N'ул. Маяковского', 44)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (32, N'426030, г. Лесной, ул. Маяковского, 44')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (33, 450375, N'г. Лесной', N'ул. Клубная', 44)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (33, N'450375, г. Лесной ул. Клубная, 44')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (34, 625560, N'г. Лесной', N'ул. Некрасова', 12)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (34, N'625560, г. Лесной, ул. Некрасова, 12')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (35, 630201, N'г. Лесной', N'ул. Комсомольская', 17)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (35, N'630201, г. Лесной, ул. Комсомольская, 17')
 GO
-INSERT [dbo].[PVZ] ([ID], [Index], [City], [Street], [Home]) VALUES (36, 190949, N'г. Лесной', N'ул. Мичурина', 26)
+INSERT [dbo].[PVZ] ([ID], [Address]) VALUES (36, N'190949, г. Лесной, ул. Мичурина, 26')
 GO
 INSERT [dbo].[Roles] ([ID], [Name]) VALUES (1, N'Администратор')
 GO
