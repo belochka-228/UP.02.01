@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cfa1eac4f03b42c4b3906c05c20c6741" Name="Diagram1">
+      <Diagram DiagramId="cb570836c0c04d21891ae94d75c00840" Name="Diagram1">
         <EntityTypeShape EntityType="ToysModel.Category" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ToysModel.Manufacturers" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ToysModel.OrderProduct" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ToysModel.Orders" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Orders" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ToysModel.Products" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ToysModel.PVZ" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ToysModel.Roles" Width="1.5" PointX="1.5" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ToysModel.Status" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.PVZ" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Roles" Width="1.5" PointX="1.5" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Status" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ToysModel.Suppliers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ToysModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="ToysModel.Users" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToysModel.Users" Width="1.5" PointX="0.75" PointY="14.125" IsExpanded="true" />
         <AssociationConnector Association="ToysModel.FK_Products_Category" ManuallyRouted="false" />
         <AssociationConnector Association="ToysModel.FK_Products_Manufacturers" ManuallyRouted="false" />
         <AssociationConnector Association="ToysModel.FK_OrderProduct_Orders" ManuallyRouted="false" />

@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Row="0" ItemsSource="{Binding OrderProduct}" x:Name="lstOrders" SelectionChanged="lstOrders_SelectionChanged"  d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox Grid.Row="0" x:Name="lstOrders" SelectionChanged="lstOrders_SelectionChanged"  d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Padding="5">
@@ -23,21 +23,13 @@
                                 <ColumnDefinition Width="150"/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Orientation="Vertical" Margin="10">
-                                <TextBlock Text="{Binding Products.Artikul, StringFormat=Арктикул заказа: {0}}"/>
-                                <TextBlock Text="{Binding Orders.Status.StatusOrder, StringFormat=Статус заказа: {0}}"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Orders.PVZ.Index, StringFormat= Адрес пункта выдачи: {0}}"/>
-                                    <TextBlock Text=", "/>
-                                    <TextBlock Text="{Binding Orders.PVZ.City}"/>
-                                    <TextBlock Text=", "/>
-                                    <TextBlock Text="{Binding Orders.PVZ.Street}"/>
-                                    <TextBlock Text=", "/>
-                                    <TextBlock Text="{Binding Orders.PVZ.Home}"/>
-                                </StackPanel>
-                                <TextBlock Text="{Binding Orders.OrderDate, StringFormat= Дата доставки: {0} }"/>
+                                <TextBlock Text="{Binding Artikul, StringFormat='Артикул заказа: {0}'}"/>
+                                <TextBlock Text="{Binding Status.StatusOrder, StringFormat='Статус заказа: {0}'}"/>
+                                <TextBlock Text="{Binding PVZ.Address, StringFormat='Адрес: {0}'}"/>
+                                <TextBlock Text="{Binding OrderDate, StringFormat='Дата заказа: {0:dd.MM.yyyy}'}"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Orders.DeliveryDate, StringFormat= Дата доставки: {0}}" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding DeliveryDate, StringFormat= Дата доставки: {0}}" TextWrapping="Wrap"/>
                             </StackPanel>
                         </Grid>
                     </Border>

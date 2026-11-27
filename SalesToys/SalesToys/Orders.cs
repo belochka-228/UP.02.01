@@ -21,6 +21,7 @@ namespace SalesToys
         }
     
         public int IDOrder { get; set; }
+        public string Artikul { get; set; }
         public System.DateTime OrderDate { get; set; }
         public System.DateTime DeliveryDate { get; set; }
         public int AddressPoint { get; set; }

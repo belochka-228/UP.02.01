@@ -42,8 +42,9 @@ namespace SalesToys.Pages
         }
         private void LoadData()
         {
-            lstOrders.ItemsSource = Core.Context.OrderProduct.Include(op => op.Products).Include(op => op.Orders.PVZ)
-                            .Include(op => op.Orders.Status).ToList();
+           // lstOrders.ItemsSource = Core.Context.OrderProduct.Include(op => op.Products).Include(op => op.Orders.PVZ).Include(op => op.Orders.Status).ToList();
+
+            lstOrders.ItemsSource = Core.Context.Orders.Include(o => o.PVZ).Include(o => o.Status).Include(o => o.OrderProduct).ToList();
         }
         private void lstOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
