@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Row="0" x:Name="lstOrders" SelectionChanged="lstOrders_SelectionChanged"  d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox Grid.Row="0" x:Name="lstOrders" MouseDoubleClick="lstOrders_SelectionChanged"  d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Padding="5">

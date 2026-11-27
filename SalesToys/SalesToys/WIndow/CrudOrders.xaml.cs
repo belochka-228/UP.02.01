@@ -20,7 +20,6 @@ namespace SalesToys.WIndow
     public partial class CrudOrders : Window
     {
         private Orders _currentOrder;
-        private OrderProduct _currentOrderProduct;
 
         public CrudOrders(Orders order)
         {
@@ -40,22 +39,20 @@ namespace SalesToys.WIndow
                     DeliveryDate = DateTime.Today.AddDays(3)
                 };
             }
-
             FillFields();
         }
 
         private void LoadData()
         {
-            cmbArtikul.ItemsSource = Core.Context.Products.ToList();
             cmbStatus.ItemsSource = Core.Context.Status.ToList();
             cmbPVZ.ItemsSource = Core.Context.PVZ.ToList();
         }
 
         private void FillFields()
         {
-            if (_currentOrderProduct != null)
+            if (_currentOrder != null)
             {
-                cmbArtikul.SelectedValue = _currentOrderProduct.IDProduct;
+                txtArtikul.Text = _currentOrder.Artikul;
             }
 
             if (_currentOrder.IDStatus > 0)
@@ -79,7 +76,7 @@ namespace SalesToys.WIndow
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (cmbArtikul.SelectedItem == null ||
+            if (string.IsNullOrWhiteSpace(txtArtikul.Text) ||
                 cmbStatus.SelectedItem == null ||
                 cmbPVZ.SelectedItem == null ||
                 !dpOrderDate.SelectedDate.HasValue ||
@@ -97,8 +94,6 @@ namespace SalesToys.WIndow
 
             try
             {
-                int productId = (int)cmbArtikul.SelectedValue;
-
                 _currentOrder.IDStatus = (int)cmbStatus.SelectedValue;
                 _currentOrder.AddressPoint = (int)cmbPVZ.SelectedValue;
                 _currentOrder.OrderDate = dpOrderDate.SelectedDate.Value;
@@ -107,31 +102,8 @@ namespace SalesToys.WIndow
                 if (_currentOrder.IDOrder == 0)
                 {
                     _currentOrder.IDUsers = UserData.users != null ? UserData.users.ID : 1;
-                    _currentOrder.Kod = new Random().Next(100, 999);
-
+                    _currentOrder.Kod = (Core.Context.Orders.Max(o => (int?)o.Kod) ?? 0) + 1;
                     Core.Context.Orders.Add(_currentOrder);
-
-                    _currentOrderProduct = new OrderProduct
-                    {
-                        Orders = _currentOrder,
-                        IDProduct = productId,
-                        Quantity = 1
-                    };
-                    Core.Context.OrderProduct.Add(_currentOrderProduct);
-                }
-                else if (_currentOrderProduct != null)
-                {
-                    _currentOrderProduct.IDProduct = productId;
-                }
-                else
-                {
-                    _currentOrderProduct = new OrderProduct
-                    {
-                        IDOrder = _currentOrder.IDOrder,
-                        IDProduct = productId,
-                        Quantity = 1
-                    };
-                    Core.Context.OrderProduct.Add(_currentOrderProduct);
                 }
 
                 Core.Context.SaveChanges();

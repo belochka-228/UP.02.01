@@ -43,8 +43,10 @@ namespace SalesToys.WIndow
         {
             if (!string.IsNullOrEmpty(_currentSavedFilePath))
             {
-                DisplayImage(Path.Combine(_imagesFolder, _currentSavedFilePath));
+                string fileName = Path.GetFileName(_currentSavedFilePath);
+                DisplayImage(Path.Combine(_imagesFolder, fileName));
             }
+
 
             if (!string.IsNullOrWhiteSpace(_currentProduct.Artikul))
             {

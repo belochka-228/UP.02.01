@@ -44,18 +44,7 @@ namespace SalesToys.Pages
         {
            // lstOrders.ItemsSource = Core.Context.OrderProduct.Include(op => op.Products).Include(op => op.Orders.PVZ).Include(op => op.Orders.Status).ToList();
 
-            lstOrders.ItemsSource = Core.Context.Orders.Include(o => o.PVZ).Include(o => o.Status).Include(o => o.OrderProduct).ToList();
-        }
-        private void lstOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (UserData.users == null || UserData.users.IDRoles != 1)
-                return;
-            var selectedTovar = lstOrders.SelectedItem as OrderProduct;
-            if (selectedTovar == null || selectedTovar.Orders == null)
-                return;
-            var crudOrder = new CrudOrders(selectedTovar.Orders);
-            crudOrder.ShowDialog();
-            LoadData();
+            lstOrders.ItemsSource = Core.Context.Orders.ToList();
         }
 
         private void ButtonAddOrder_Click(object sender, RoutedEventArgs e)
@@ -68,24 +57,24 @@ namespace SalesToys.Pages
 
         private void ButtonDeleteOrder_Click(object sender, RoutedEventArgs e)
         {
-            if (!(lstOrders.SelectedItem is OrderProduct selectedItem) || selectedItem.Orders == null)
+            if (lstOrders.SelectedItem == null)
             {
-                MessageBox.Show("Сначала выберите заказ!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Сначала выберите заказ!", "Ошибка");
                 return;
             }
 
-            var order = selectedItem.Orders;
+             var selectedOrder = lstOrders.SelectedItem as Orders;
 
-            if (MessageBox.Show($"Вы уверены в удалении заказа №{order.IDOrder}?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show($"Вы уверены в удалении заказа №{selectedOrder.IDOrder}?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 try
                 {
-                    var orderProducts = Core.Context.OrderProduct.Where(op => op.IDOrder == order.IDOrder).ToList();
-                    Core.Context.OrderProduct.RemoveRange(orderProducts);
-                    Core.Context.Orders.Remove(order);
+                    var orderProducts = Core.Context.OrderProduct.Where(op => op.IDOrder == selectedOrder.IDOrder).ToList();
+                    //Core.Context.OrderProduct.RemoveRange(orderProducts);
+                    Core.Context.Orders.Remove(selectedOrder);
 
                     Core.Context.SaveChanges();
-                    MessageBox.Show($"Заказ {order.IDOrder} успешно удалён");
+                    MessageBox.Show($"Заказ {selectedOrder.IDOrder} успешно удалён");
                     LoadData();
                 }
                 catch (Exception ex)
@@ -98,6 +87,18 @@ namespace SalesToys.Pages
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void lstOrders_SelectionChanged(object sender, MouseButtonEventArgs e)
+        {
+            if (UserData.users == null || UserData.users.IDRoles != 1)
+                return;
+            var selectedTovar = lstOrders.SelectedItem as Orders;
+            if (selectedTovar == null || selectedTovar == null)
+                return;
+            var crudOrder = new CrudOrders(selectedTovar);
+            crudOrder.ShowDialog();
+            LoadData();
         }
     }
 }

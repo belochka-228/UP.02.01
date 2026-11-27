@@ -25,7 +25,7 @@
                             <TextBox x:Name="txtImage" Height="20" Width="300" Margin="0,0,5,0"/>
                             <Button Content="Загрузить фото" Height="20" Click="BtnDowlound_Click" Background="{StaticResource BrushAccent}"/>
                         </StackPanel>
-                        <Image x:Name="ImgPreview" Height="Auto" HorizontalAlignment="Center"/>
+                        <Image x:Name="ImgPreview" Height="150" Width="150" Stretch="Uniform" HorizontalAlignment="Center"/>
                     </StackPanel>
                     
                     <TextBlock Text="Наименование товара"/>

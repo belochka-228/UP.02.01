@@ -13,7 +13,7 @@
                 <StackPanel>
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Артикул товара:" Margin="0,0,0,4"/>
-                        <ComboBox x:Name="cmbArtikul" DisplayMemberPath="Artikul" SelectedValuePath="IDProduct"/>
+                        <TextBox x:Name="txtArtikul"/>
                     </StackPanel>
 
                     <StackPanel Margin="0,0,0,10">
@@ -23,21 +23,7 @@
 
                     <StackPanel Margin="0,0,0,10">
                         <TextBlock Text="Адрес пункта выдачи:" Margin="0,0,0,4"/>
-                        <ComboBox x:Name="cmbPVZ" SelectedValuePath="ID">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                        <Run Text="{Binding Index}"/>
-                                        <Run Text=", "/>
-                                        <Run Text="{Binding City}"/>
-                                        <Run Text=", "/>
-                                        <Run Text="{Binding Street}"/>
-                                        <Run Text=", "/>
-                                        <Run Text="{Binding Home}"/>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                        <ComboBox x:Name="cmbPVZ" SelectedValuePath="ID" DisplayMemberPath="Address"/>
                     </StackPanel>
 
                     <StackPanel Margin="0,0,0,10">
